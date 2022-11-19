@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      // onload handler
+      window.addEventListener("load", () => {
+        loadExistingComments();
+      });
+
+      function loadExistingComments() {
+        // alert();
+        let comments = localStorage.getItem("comments");
+
+        if (comments != null) {
+          comments = JSON.parse(comments);
+
+          for (let comment of comments) {
+            let newComment = `<p>${comment}</p>`;
+            document.querySelector("div").innerHTML += newComment;
+          }
+        }
+      }
+
+      function postYourComment() {
+        let userCommment = document.querySelector("input").value;
+
+        let existingComment = document.querySelector("div").innerHTML;
+        let newComment = `<p>${userCommment}</p>`;
+
+        document.querySelector("div").innerHTML = existingComment + newComment;
+
+        // reset the value
+        document.querySelector("input").value = "";
+
+        // SAVE INTO THE LOCAL STORAGE
+        let comments = []; // ARRAY OBJECT
+        let oldComments = localStorage.getItem("comments"); // STRING
+        if (oldComments != null) {
+          comments = JSON.parse(oldComments); // convert string to array object
+        }
+        // push new comments
+        comments.push(userCommment);
+        localStorage.setItem("comments", JSON.stringify(comments));
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Basic Project</h1>
+
+    <input type="text" name="" placeholder="Post your comment" />
+    <input type="button" value="Submit" onclick="postYourComment()" />
+
+    <h3>Comments</h3>
+    <div></div>
+  </body>
+</html>
