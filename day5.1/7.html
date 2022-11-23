@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      function addNewTodo() {
+        let parent = document.querySelector("#todolist");
+
+        let input = document.querySelector("#input");
+
+        let newItem = `
+                    <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px">
+                    <div>${input.value}</div>
+
+                    <div>
+                      <input  type="button" value="Edit" onclick="edit(this)" />
+                      <input type="button" value="Delete" onclick="deleteItem(this)" />
+                    </div>
+                  </div>
+                      `;
+
+        parent.innerHTML += newItem;
+
+        input.value = "";
+      }
+
+      let globalEditRef;
+      function edit(editRef) {
+        globalEditRef = editRef;
+
+        let editText = editRef.parentElement.previousElementSibling.innerHTML;
+        console.log(editText);
+
+        document.querySelector("#input").value = editText;
+      }
+
+      function saveChanges() {
+        let input = document.querySelector("#input");
+        globalEditRef.parentElement.previousElementSibling.innerHTML =
+          input.value;
+
+        input.value = "";
+      }
+
+      function deleteItem(delRef) {
+        delRef.parentElement.parentElement.remove();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Todo Application</h1>
+
+    <input id="input" type="text" />
+    <input type="button" value="Add" onclick="addNewTodo()" />
+    <input type="button" value="Save Changes" onclick="saveChanges()" />
+
+    <div id="todolist">
+      <div
+        style="display: flex; justify-content: space-between; margin-top: 8px"
+      >
+        <div>a</div>
+
+        <div>
+          <input type="button" value="Edit" onclick="edit(this)" />
+          <input type="button" value="Delete" onclick="deleteItem(this)" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

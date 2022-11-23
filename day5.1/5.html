@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+      function addNewTodo() {
+        let parent = document.querySelector("#todolist");
+
+        let input = document.querySelector("#input");
+
+        let newItem = `
+                    <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px">
+                    <div>${input.value}</div>
+
+                    <div>
+                      <input type="button" value="Edit" />
+                      <input type="button" value="Delete" />
+                    </div>
+                  </div>
+                      `;
+
+        parent.innerHTML += newItem;
+
+        input.value = "";
+      }
+    
+    
+      function edit(editRef) {
+        // console.log(editRef);
+        
+        let editText =  editRef.parentElement.previousElementSibling.innerHTML;
+        console.log(editText);
+
+        document.querySelector("#input").value= editText;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Todo Application</h1>
+
+    <input id="input" type="text" />
+    <input type="button" value="Add" onclick="addNewTodo()" />
+
+    <div id="todolist">
+      <div
+        style="display: flex; justify-content: space-between; margin-top: 8px"
+      >
+        <div>a</div>
+
+        <div>
+          <input  type="button" value="Edit" onclick="edit(this)" />
+          <input type="button" value="Delete" />
+        </div>
+      </div>
+    </div>
+
+    <div
+        style="display: flex; justify-content: space-between; margin-top: 8px"
+      >
+        <div>b</div>
+
+        <div>
+          <input  type="button" value="Edit" onclick="edit(this)"/>
+          <input type="button" value="Delete" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
